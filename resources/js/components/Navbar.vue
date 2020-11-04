@@ -9,8 +9,8 @@
         <router-link to="cars">
             <span>Cars</span>
         </router-link>
-        <router-link to="example">
-            <span>Example</span>
+        <router-link to="">
+            <span></span>
         </router-link>
     </div>
 </template>

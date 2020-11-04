@@ -25,3 +25,5 @@ Route::get('/members', [MemberController::class, 'index'])->name('getmembers');
 Route::get('/cars', [CarController::class, 'index'])->name('getcars');
 Route::get('/adresses', [AddressController::class, 'index'])->name('getaddresses');
 
+Route::post('/members', [MemberController::class, 'store'])->name('postmember');
+
