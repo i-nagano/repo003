@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container mt-12">
+    <div class="container mt-10">
       <div class="row mt-6" justify="start">
         <h2>Members Test</h2>
       </div>
@@ -27,17 +27,16 @@
           <p> {{ $data.email }}</p>
         </div>
       </div>
-      <br />
+      <br>
       <div class="row mt-6" justify="start">
         <button v-on:click="postMember" class="btn btn-outline-dark">
           登録
         </button>
       </div>
     </div>
-    <br />
     <div class="container mt-10">
-      <div class="row mt-6" justify="start">
-        <table class="table table-sm table-responsive table-bordered">
+      <div class="row mt-10" justify="start">
+        <table class="table table-sm table-responsive">
           <thead>
             <tr>
               <th>
@@ -98,6 +97,7 @@ export default {
         key: "", // ソートキー
         isAsc: false, // 昇順ならtrue,降順ならfalse
       },
+      keyword: "",
     };
   },
   mounted: function () {
@@ -116,33 +116,38 @@ export default {
       }
       return list;
     },
+    // 検索"filteredMembers()"を実施
+    filterMembers() {
+        return this.filteredMembers();
+    },
   },
   methods: {
     getMembers() {
       axios
-        .get("/api/members")
-        .then((response) => {
+        .get('/api/members')
+        .then(response => {
           this.members = response.data;
           return console.log(response.data);
         })
-        .catch((error) => {
+        .catch(error => {
           this.message = error.response.data;
           return console.log(error.response.data);
         });
     },
     postMember() {
       axios
-        .post("/api/members", {
+        .post('/api/members', {
           name: this.name,
           email: this.email,
         })
-        .then((response) => {
-          this.getMembers(), (this.name = "");
+        .then(response => {
+          this.getMembers(),
+          this.name = "";
           this.email = "";
         })
-        .catch((error) => {
+        .catch(error => {
           this.message = error.response.data;
-          return console.log(error.message.data);
+          return console.log(error.response.data);
         });
     },
     // sort用キーをセットし、昇順・降順を入れ替える
@@ -155,9 +160,22 @@ export default {
         ? `sorted ${this.sort.isAsc ? "asc" : "desc"}`
         : "";
     },
+    // 検索キーワード"keyword"に一致する項目のみ表示"push"する
+    filteredMembers() {
+        let members = [];
+        for (let i in this.members) {
+            let member = this.member[i];
+            if (member.name.indexOf(this.keyword) !== -1 ||
+                member.email.indexOf(this.keyword) !== -1) {
+                members.push(member);
+            }
+        }
+        return members;
+    },
   },
 };
 </script>
 
 <style lang="" scoped>
+
 </style>

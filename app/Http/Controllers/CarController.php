@@ -50,9 +50,12 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Car $car)
+    public function update(Request $request, Car $car, $id)
     {
-        //
+        $car = Car::where('id', $id);
+        $car->name = $request->name;
+        $car->number = $request->number;
+        $car->save();
     }
 
     /**
@@ -61,8 +64,9 @@ class CarController extends Controller
      * @param  \App\Models\Car  $car
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Car $car)
+    public function destroy(Car $car, $id)
     {
-        //
+        $car = Car::where('id', $id);
+        $car->destroy();
     }
 }

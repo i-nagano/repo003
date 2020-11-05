@@ -50,9 +50,20 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Member $member)
+    public function update(Request $request, Member $member, $id)
     {
-        //
+        $member = Member::where('id', $id);
+        $update = [
+            'name' => $request->name,
+            'email' => $request->email
+            ];
+        $member->update($update);
+
+        // 上記 $update, $member->update($update) は以下の処理と同じ。
+        // $member = Member::where('id', $id);
+        // $member->name = $request->name;
+        // $member->email = $request->email;
+        // $member->save();
     }
 
     /**
@@ -61,8 +72,9 @@ class MemberController extends Controller
      * @param  \App\Models\Member  $member
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Member $member)
+    public function destroy(Member $member, $id)
     {
-        //
+        $member = Member::where('id', $id);
+        $member->destroy();
     }
 }

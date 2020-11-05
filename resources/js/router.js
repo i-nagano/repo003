@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './components/routerviews/Home.vue';
 import Members from './components/routerviews/Members.vue';
 import Cars from './components/routerviews/Cars.vue';
+import Address from './components/routerviews/Addresses.vue';
 
 Vue.use(Router);
 
@@ -24,11 +25,11 @@ export default new Router({
             path: '/cars',
             component: Cars
         },
-        // {
-        //     name: '',
-        //     path: '',
-        //     component:
-        // },
+        {
+            name: 'Address',
+            path: '/adress',
+            component: Address
+        },
     ],
 });
 

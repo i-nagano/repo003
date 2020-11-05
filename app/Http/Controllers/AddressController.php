@@ -53,9 +53,17 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Address $address)
+    public function update(Request $request, Address $address, $id)
     {
-        //
+        $address = Address::where('id', $id);
+        $update = [
+            'parkdate' => $request->parkdate,
+            'member_name' => $request->member_name,
+            'car_name' => $request->car_name,
+            'address' => $request->address,
+            'comment' => $request->comment,
+        ];
+        $address->update($update);
     }
 
     /**
@@ -64,8 +72,9 @@ class AddressController extends Controller
      * @param  \App\Models\Address  $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Address $address)
+    public function destroy(Address $address, $id)
     {
-        //
+        $address = Address::where('id', $id);
+        $address->destroy();
     }
 }

@@ -29,10 +29,13 @@ window.Vue = require('vue');
 
 import router from './router.js';
 import App from './App.vue';
+import Vuetify from 'vuetify';
+Vue.use(Vuetify);
 
 const app = new Vue({
     el: '#app',
     router,
+    vuetify: new Vuetify(),
     components: { App },
     template: '<App></App>',
 });

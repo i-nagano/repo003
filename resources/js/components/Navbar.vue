@@ -1,25 +1,28 @@
 <template>
-    <div>
+  <div>
+    <v-container class="mt-12">
+      <v-row class="mt-12" justify="start">
         <router-link to="/">
-            <span>Home</span>
+          <span> | Home | </span>
         </router-link>
         <router-link to="members">
-            <span>Members</span>
+          <span> Members | </span>
         </router-link>
         <router-link to="cars">
-            <span>Cars</span>
+          <span> Cars | </span>
         </router-link>
-        <router-link to="">
-            <span></span>
+        <router-link to="address">
+          <span> Address | </span>
         </router-link>
-    </div>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'Navbar',
-
-    }
+export default {
+  name: "Navbar",
+};
 </script>
 
 <style lang="" scoped>

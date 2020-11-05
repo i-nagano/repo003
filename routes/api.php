@@ -26,4 +26,6 @@ Route::get('/cars', [CarController::class, 'index'])->name('getcars');
 Route::get('/adresses', [AddressController::class, 'index'])->name('getaddresses');
 
 Route::post('/members', [MemberController::class, 'store'])->name('postmember');
+Route::post('/cars', [CarController::class, 'store'])->name('postcar');
+Route::post('/addresses', [AddressController::class, 'store'])->name('postaddress');
 
