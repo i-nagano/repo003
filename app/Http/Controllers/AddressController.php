@@ -30,7 +30,7 @@ class AddressController extends Controller
         $address->parkdate = $request->parkdate;
         $address->member_name = $request->member_name;
         $address->car_name = $request->car_name;
-        $address->address = $request->address;
+        $address->place = $request->place;
         $address->comment = $request->comment;
         $address->save();
     }
@@ -60,7 +60,7 @@ class AddressController extends Controller
             'parkdate' => $request->parkdate,
             'member_name' => $request->member_name,
             'car_name' => $request->car_name,
-            'address' => $request->address,
+            'place' => $request->place,
             'comment' => $request->comment,
         ];
         $address->update($update);

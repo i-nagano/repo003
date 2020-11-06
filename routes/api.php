@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/members', [MemberController::class, 'index'])->name('getmembers');
 Route::get('/cars', [CarController::class, 'index'])->name('getcars');
-Route::get('/adresses', [AddressController::class, 'index'])->name('getaddresses');
+Route::get('/addresses', [AddressController::class, 'index'])->name('getaddresses');
 
 Route::post('/members', [MemberController::class, 'store'])->name('postmember');
 Route::post('/cars', [CarController::class, 'store'])->name('postcar');

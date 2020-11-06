@@ -18,7 +18,7 @@ class CreateAddressesTable extends Migration
             $table->date('parkdate');
             $table->string('member_name');
             $table->string('car_name');
-            $table->string('address');
+            $table->string('place');
             $table->string('comment')->nullable();
             $table->timestamps();
         });

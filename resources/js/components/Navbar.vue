@@ -11,8 +11,8 @@
         <router-link to="cars">
           <span>Cars</span>|
         </router-link>
-        <router-link to="address">
-          <span>Address</span>
+        <router-link to="addresses">
+          <span>Addresses</span>
         </router-link>
       </v-row>
     </v-container>
