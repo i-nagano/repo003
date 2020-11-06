@@ -2,7 +2,7 @@
   <div>
     <v-container>
       <v-row>
-        <ul>
+        <ul class="list-unstyled">
           <li>
             <label for="parkdate">駐車場日時:</label>
             <input type="date" name="parkdate" id="parkdate" v-model="parkdate" />
@@ -22,12 +22,10 @@
           <li></li>
         </ul>
       </v-row>
-    </v-container>
-    <v-contai>
       <v-row>
         <table></table>
       </v-row>
-    </v-contai>
+    </v-container>
   </div>
 </template>
 
@@ -43,21 +41,59 @@ export default {
         car_name: "",
         cars: [],
         address: "",
+        addresses: [],
         comment: "",
+        message: "",
     };
   },
-  mounted: {},
-  computed: {},
+  mounted: function() {
+      this.getAddresses();
+      this.getMembers();
+      this.getCars();
+  },
+  computed: function() {
+  },
   methods: {
     getAddresses() {
-      axios.get('/api/addresses');
+      axios
+        .get('/api/addresses')
+        .then(response => {
+            this.Addresses = response.data;
+            return console.log(response.data);
+        })
+        .catch(error => {
+            this.message = error.response.data;
+            return console.log(error.response.data);
+        });
     },
-    getMembers() {},
-    getCars() {},
+    getMembers() {
+        axios
+          .get('/members')
+          .then(response => {
+              this.members = response.data;
+              return console.log(response.data);
+          })
+          .cacth(error => {
+              this.message = error.response.data;
+              return console.log(error.response.data);
+          })
+    },
+    getCars() {
+        axios
+          .get('/cars')
+          .then(response => {
+              this.cars = response.data;
+              return console.log(response.data);
+          })
+          .cacth(error => {
+              this.message = error.response.data;
+              return console.log(error.response.data);
+          });
+    },
   },
 };
 </script>
 
-<style lang="" scoped>
+<style scoped>
 
 </style>

@@ -2031,8 +2031,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Addresses",
   components: {},
@@ -2044,17 +2042,51 @@ __webpack_require__.r(__webpack_exports__);
       car_name: "",
       cars: [],
       address: "",
-      comment: ""
+      addresses: [],
+      comment: "",
+      message: ""
     };
   },
-  mounted: {},
-  computed: {},
+  mounted: function mounted() {
+    this.getAddresses();
+    this.getMembers();
+    this.getCars();
+  },
+  computed: function computed() {},
   methods: {
     getAddresses: function getAddresses() {
-      axios.get('/api/addresses');
+      var _this = this;
+
+      axios.get('/api/addresses').then(function (response) {
+        _this.Addresses = response.data;
+        return console.log(response.data);
+      })["catch"](function (error) {
+        _this.message = error.response.data;
+        return console.log(error.response.data);
+      });
     },
-    getMembers: function getMembers() {},
-    getCars: function getCars() {}
+    getMembers: function getMembers() {
+      var _this2 = this;
+
+      axios.get('/members').then(function (response) {
+        _this2.members = response.data;
+        return console.log(response.data);
+      }).cacth(function (error) {
+        _this2.message = error.response.data;
+        return console.log(error.response.data);
+      });
+    },
+    getCars: function getCars() {
+      var _this3 = this;
+
+      axios.get('/cars').then(function (response) {
+        _this3.cars = response.data;
+        return console.log(response.data);
+      }).cacth(function (error) {
+        _this3.message = error.response.data;
+        return console.log(error.response.data);
+      });
+    }
   }
 });
 
@@ -2069,10 +2101,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -2212,6 +2240,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38077,19 +38110,22 @@ var render = function() {
             { staticClass: "mt-12", attrs: { justify: "start" } },
             [
               _c("router-link", { attrs: { to: "/" } }, [
-                _c("span", [_vm._v(" | Home | ")])
+                _c("span", [_vm._v("Home")]),
+                _vm._v("|\n      ")
               ]),
               _vm._v(" "),
               _c("router-link", { attrs: { to: "members" } }, [
-                _c("span", [_vm._v(" Members | ")])
+                _c("span", [_vm._v("Members")]),
+                _vm._v("|\n      ")
               ]),
               _vm._v(" "),
               _c("router-link", { attrs: { to: "cars" } }, [
-                _c("span", [_vm._v(" Cars | ")])
+                _c("span", [_vm._v("Cars")]),
+                _vm._v("|\n      ")
               ]),
               _vm._v(" "),
               _c("router-link", { attrs: { to: "address" } }, [
-                _c("span", [_vm._v(" Address | ")])
+                _c("span", [_vm._v("Address")])
               ])
             ],
             1
@@ -38130,7 +38166,7 @@ var render = function() {
         "v-container",
         [
           _c("v-row", [
-            _c("ul", [
+            _c("ul", { staticClass: "list-unstyled" }, [
               _c("li", [
                 _c("label", { attrs: { for: "parkdate" } }, [
                   _vm._v("駐車場日時:")
@@ -38222,12 +38258,12 @@ var render = function() {
               _vm._v(" "),
               _c("li")
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c("v-row", [_c("table")])
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("v-contai", [_c("v-row", [_c("table")])], 1)
+      )
     ],
     1
   )
@@ -38259,18 +38295,16 @@ var render = function() {
     [
       _c(
         "v-container",
-        { staticClass: "mt-12" },
+        { staticClass: "mt-2" },
         [
-          _c("v-row", { staticClass: "mt-12", attrs: { justify: "start" } }, [
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
             _c("h2", [_vm._v("Cars Test")])
           ]),
           _vm._v(" "),
-          _c("v-row", { staticClass: "mt-12", attrs: { justify: "start" } }, [
-            _c("ul", [
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
+            _c("ul", { staticClass: "list-unstyled" }, [
               _c("li", [
-                _c("label", { attrs: { for: "name" } }, [
-                  _c("p", [_vm._v("Name:")])
-                ]),
+                _c("label", { attrs: { for: "name" } }, [_vm._v("Name: ")]),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -38295,9 +38329,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", [
-                _c("label", { attrs: { for: "number" } }, [
-                  _c("p", [_vm._v("Number:")])
-                ]),
+                _c("label", { attrs: { for: "number" } }, [_vm._v("Number: ")]),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -38336,7 +38368,7 @@ var render = function() {
           _vm._v(" "),
           _c("br"),
           _vm._v(" "),
-          _c("v-row", { staticClass: "mt-12", attrs: { justify: "start" } }, [
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
             _c("label", { attrs: { for: "keyword" } }, [_vm._v("検索:")]),
             _vm._v(" "),
             _c("input", {
@@ -38366,7 +38398,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("v-row", { staticClass: "mt-12", attrs: { justify: "start" } }, [
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
             _c("table", { staticClass: "table table-sm table-responsive" }, [
               _c("thead", [
                 _c("tr", [
@@ -38419,7 +38451,7 @@ var render = function() {
                   expression: "message"
                 }
               ],
-              staticClass: "mt-12",
+              staticClass: "mt-2",
               attrs: { id: "message", justify: "start" }
             },
             [_c("p", [_vm._v(_vm._s(_vm.message))])]
@@ -38458,10 +38490,18 @@ var render = function() {
     [
       _c(
         "v-container",
-        { staticClass: "mt-12" },
+        { staticClass: "mt-2" },
         [
-          _c("v-row", { staticClass: "mt-12", attrs: { justify: "start" } }, [
-            _c("h2", [_vm._v("Home Test")])
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
+            _c("h2", [_vm._v("Home Test")]),
+            _vm._v(" "),
+            _c("ul", [
+              _c("li", [_vm._v("Test1")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Test2")]),
+              _vm._v(" "),
+              _c("li", [_vm._v("Test3")])
+            ])
           ])
         ],
         1
@@ -38493,11 +38533,11 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container mt-10" }, [
+    _c("div", { staticClass: "container mt-2" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "row mt-6", attrs: { justify: "start" } }, [
-        _c("ul", [
+      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
+        _c("ul", { staticClass: "list-unstyled" }, [
           _c("li", [
             _c("label", { attrs: { for: "name" } }, [_vm._v("名前:")]),
             _vm._v(" "),
@@ -38550,7 +38590,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row mt-6", attrs: { justify: "start" } }, [
+      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
         _vm._m(1),
         _vm._v(" "),
         _c("div", { staticClass: "card", attrs: { color: "", width: "" } }, [
@@ -38564,7 +38604,7 @@ var render = function() {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _c("div", { staticClass: "row mt-6", attrs: { justify: "start" } }, [
+      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
         _c(
           "button",
           {
@@ -38576,8 +38616,8 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "container mt-10" }, [
-      _c("div", { staticClass: "row mt-10", attrs: { justify: "start" } }, [
+    _c("div", { staticClass: "container mt-2" }, [
+      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
         _c("table", { staticClass: "table table-sm table-responsive" }, [
           _c("thead", [
             _c("tr", [
@@ -38663,7 +38703,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row mt-6", attrs: { justify: "start" } }, [
+    return _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
       _c("h2", [_vm._v("Members Test")])
     ])
   },
@@ -38804,7 +38844,7 @@ function normalizeComponent (
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /*!
-  * vue-router v3.4.8
+  * vue-router v3.4.9
   * (c) 2020 Evan You
   * @license MIT
   */
@@ -40170,6 +40210,14 @@ function addRouteRecord (
         path || name
       )) + " cannot be a " + "string id. Use an actual component instead."
     );
+
+    warn(
+      // eslint-disable-next-line no-control-regex
+      !/[^\u0000-\u007F]+/.test(path),
+      "Route with path \"" + path + "\" contains unencoded characters, make sure " +
+        "your path is correctly encoded before passing it to the router. Use " +
+        "encodeURI to encode static segments of your path."
+    );
   }
 
   var pathToRegexpOptions =
@@ -40475,14 +40523,6 @@ function matchRoute (
   path,
   params
 ) {
-  try {
-    path = decodeURI(path);
-  } catch (err) {
-    if (true) {
-      warn(false, ("Error decoding \"" + path + "\". Leaving it intact."));
-    }
-  }
-
   var m = path.match(regex);
 
   if (!m) {
@@ -40495,7 +40535,7 @@ function matchRoute (
     var key = regex.keys[i - 1];
     if (key) {
       // Fix #1994: using * with props: true generates a param named 0
-      params[key.name || 'pathMatch'] = m[i];
+      params[key.name || 'pathMatch'] = typeof m[i] === 'string' ? decode(m[i]) : m[i];
     }
   }
 
@@ -41860,7 +41900,7 @@ function createHref (base, fullPath, mode) {
 }
 
 VueRouter.install = install;
-VueRouter.version = '3.4.8';
+VueRouter.version = '3.4.9';
 VueRouter.isNavigationFailure = isNavigationFailure;
 VueRouter.NavigationFailureType = NavigationFailureType;
 
@@ -98361,10 +98401,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed (from ./node_modules/css-loader/dist/cjs.js):\nTypeError: text.forEach is not a function\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\extract-text-webpack-plugin\\dist\\loader.js:145:16\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compiler.js:343:11\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compiler.js:681:15\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:24:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compiler.js:678:31\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:6:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1423:35\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:6:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1414:32\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:6:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1409:36\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:6:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1405:32\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:6:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at Compilation.seal (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1342:27)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compiler.js:675:18\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1261:4\n    at AsyncSeriesHook.eval [as callAsync] (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:15:1)\n    at AsyncSeriesHook.lazyCompileHook (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\Hook.js:154:20)\n    at Compilation.finish (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1253:28)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compiler.js:672:17\n    at eval (eval at create (C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\tapable\\lib\\HookCodeFactory.js:33:10), <anonymous>:11:1)\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1185:12\n    at C:\\xampp\\htdocs\\laravel\\cars-members\\node_modules\\webpack\\lib\\Compilation.js:1097:9\n    at processTicksAndRejections (internal/process/task_queues.js:75:11)");
 
 /***/ }),
 

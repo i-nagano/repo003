@@ -1,21 +1,17 @@
 <template>
   <div>
-    <v-container class="mt-12">
-      <v-row class="mt-12" justify="start">
+    <v-container class="mt-2">
+      <v-row class="mt-2" justify="start">
         <h2>Cars Test</h2>
       </v-row>
-      <v-row class="mt-12" justify="start">
-        <ul>
+      <v-row class="mt-2" justify="start">
+        <ul class="list-unstyled">
           <li>
-            <label for="name">
-              <p>Name:</p>
-            </label>
+            <label for="name">Name: </label>
             <input type="text" v-model="$data.name"/>
           </li>
           <li>
-            <label for="number">
-              <p>Number:</p>
-            </label>
+            <label for="number">Number: </label>
             <input type="text" v-model="$data.number"/>
           </li>
         </ul>
@@ -24,7 +20,7 @@
         <button v-on:click="postCar" class="btn btn-outline-dark">登録</button>
       </v-row>
       <br>
-      <v-row class="mt-12" justify="start">
+      <v-row class="mt-2" justify="start">
         <label for="keyword">検索:</label>
         <input
           type="text"
@@ -34,7 +30,7 @@
           placeholder="Search..."
         />
       </v-row>
-      <v-row class="mt-12" justify="start">
+      <v-row class="mt-2" justify="start">
         <table class="table table-sm table-responsive">
           <thead>
             <tr>
@@ -58,7 +54,7 @@
           </tbody>
         </table>
       </v-row>
-      <v-row id="message" v-show="message" class="mt-12" justify="start">
+      <v-row id="message" v-show="message" class="mt-2" justify="start">
         <p>{{ message }}</p>
       </v-row>
     </v-container>
@@ -131,6 +127,6 @@ export default {
 };
 </script>
 
-<style lang="" scoped>
+<style scoped>
 
 </style>

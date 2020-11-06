@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="container mt-10">
-      <div class="row mt-6" justify="start">
+    <div class="container mt-2">
+      <div class="row mt-2" justify="start">
         <h2>Members Test</h2>
       </div>
-      <div class="row mt-6" justify="start">
-        <ul>
+      <div class="row mt-2" justify="start">
+        <ul class="list-unstyled">
           <li>
             <label for="name">名前:</label>
             <input type="text" name="name" id="name" v-model="name" />
@@ -16,7 +16,7 @@
           </li>
         </ul>
       </div>
-      <div class="row mt-6" justify="start">
+      <div class="row mt-2" justify="start">
         <div class="card" color="" width="">
           <p>New Member is . . .</p>
         </div>
@@ -28,14 +28,14 @@
         </div>
       </div>
       <br>
-      <div class="row mt-6" justify="start">
+      <div class="row mt-2" justify="start">
         <button v-on:click="postMember" class="btn btn-outline-dark">
           登録
         </button>
       </div>
     </div>
-    <div class="container mt-10">
-      <div class="row mt-10" justify="start">
+    <div class="container mt-2">
+      <div class="row mt-2" justify="start">
         <table class="table table-sm table-responsive">
           <thead>
             <tr>
@@ -176,6 +176,6 @@ export default {
 };
 </script>
 
-<style lang="" scoped>
+<style scoped>
 
 </style>
