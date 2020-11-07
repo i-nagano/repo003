@@ -52,8 +52,9 @@
                     </tbody>
                 </table>
             </v-row>
+            <!-- <modal-car v-bind:data="carData" v-show="showContent" v-on:close="closeModal"></modal-car> -->
             <v-row id="message" v-show="message" class="mt-2" justify="start">
-                <p>{{ message }}</p>
+                <p>エラーメッセージ: {{ message }}</p>
             </v-row>
         </v-container>
     </div>
@@ -72,6 +73,7 @@
                 name: "",
                 number: "",
                 cars: [],
+                carData: "",
                 keyword: "",
             };
         },

@@ -2086,6 +2086,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Addresses",
   components: {},
@@ -2099,7 +2122,13 @@ __webpack_require__.r(__webpack_exports__);
       place: "",
       addresses: [],
       comment: "",
-      message: ""
+      message: "",
+      sort: {
+        key: "",
+        // ソートキー
+        isAsc: false // 昇順ならtrue,降順ならfalse
+
+      }
     };
   },
   mounted: function mounted() {
@@ -2107,43 +2136,59 @@ __webpack_require__.r(__webpack_exports__);
     this.getMembers();
     this.getCars();
   },
-  computed: {},
-  methods: {
-    getAddresses: function getAddresses() {
+  computed: {
+    sortedAdresses: function sortedAdresses() {
       var _this = this;
 
-      axios.get("/api/addresses").then(function (response) {
-        _this.addresses = response.data;
-        return console.log(response.data);
-      })["catch"](function (error) {
-        _this.message = error.response.data;
-        return console.log(error.response.data);
-      });
-    },
-    getMembers: function getMembers() {
+      var list = this.addresses.slice(); // ソート実施
+
+      if (this.sort.key) {
+        list.sort(function (a, b) {
+          a = a[_this.sort.key];
+          b = b[_this.sort.key];
+          return (a === b ? 0 : a > b ? 1 : -1) * (_this.sort.isAsc ? 1 : -1);
+        });
+      }
+
+      return list;
+    }
+  },
+  methods: {
+    getAddresses: function getAddresses() {
       var _this2 = this;
 
-      axios.get("/api/members").then(function (response) {
-        _this2.members = response.data;
+      axios.get("/api/addresses").then(function (response) {
+        _this2.addresses = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
         _this2.message = error.response.data;
         return console.log(error.response.data);
       });
     },
-    getCars: function getCars() {
+    getMembers: function getMembers() {
       var _this3 = this;
 
-      axios.get("/api/cars").then(function (response) {
-        _this3.cars = response.data;
+      axios.get("/api/members").then(function (response) {
+        _this3.members = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
         _this3.message = error.response.data;
         return console.log(error.response.data);
       });
     },
-    postAddress: function postAddress() {
+    getCars: function getCars() {
       var _this4 = this;
+
+      axios.get("/api/cars").then(function (response) {
+        _this4.cars = response.data;
+        return console.log(response.data);
+      })["catch"](function (error) {
+        _this4.message = error.response.data;
+        return console.log(error.response.data);
+      });
+    },
+    postAddress: function postAddress() {
+      var _this5 = this;
 
       axios.post("/api/addresses", {
         parkdate: this.parkdate,
@@ -2152,19 +2197,27 @@ __webpack_require__.r(__webpack_exports__);
         place: this.place,
         comment: this.comment
       }).then(function (response) {
-        _this4.getAddresses();
+        _this5.getAddresses();
 
-        _this4.parkdate = "";
-        _this4.member_name = "";
-        _this4.car_name = "";
-        _this4.place = "";
-        _this4.comment = "";
-        _this4.address = response.data;
+        _this5.parkdate = "";
+        _this5.member_name = "";
+        _this5.car_name = "";
+        _this5.place = "";
+        _this5.comment = "";
+        _this5.address = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
-        _this4.message = error.response.data;
+        _this5.message = error.response.data;
         return console.log(error.response.data);
       });
+    },
+    // sort用キーをセットし、昇順・降順を入れ替える
+    sortBy: function sortBy(key) {
+      this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false;
+      this.sort.key = key;
+    },
+    sortedClass: function sortedClass(key) {
+      return this.sort.key === key ? "sorted ".concat(this.sort.isAsc ? "asc" : "desc") : "";
     }
   }
 });
@@ -2241,6 +2294,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // import CarModal from './components/modals/CarModal.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Cars',
@@ -2252,6 +2306,7 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       number: "",
       cars: [],
+      carData: "",
       keyword: ""
     };
   },
@@ -2433,6 +2488,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Members",
   components: {},
@@ -2441,6 +2499,7 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       email: "",
       members: [],
+      message: "",
       sort: {
         key: "",
         // ソートキー
@@ -39259,15 +39318,100 @@ var render = function() {
             _c("table", { staticClass: "table table-sm table-responsive" }, [
               _c("thead", [
                 _c("tr", [
-                  _c("th", [_vm._v("駐車日時")]),
+                  _c("th", [
+                    _c(
+                      "button",
+                      {
+                        class: _vm.sortedClass("parkdate"),
+                        on: {
+                          click: function($event) {
+                            return _vm.sortBy("parkdate")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                駐車日時\n                            "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("担当者名")]),
+                  _c("th", [
+                    _c(
+                      "button",
+                      {
+                        class: _vm.sortedClass("member_name"),
+                        on: {
+                          click: function($event) {
+                            return _vm.sortBy("member_name")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                担当者名\n                            "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("自車名")]),
+                  _c("th", [
+                    _c(
+                      "button",
+                      {
+                        class: _vm.sortedClass("car_name"),
+                        on: {
+                          click: function($event) {
+                            return _vm.sortBy("car_name")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                自車名\n                            "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("駐車場所")]),
+                  _c("th", [
+                    _c(
+                      "button",
+                      {
+                        class: _vm.sortedClass("place"),
+                        on: {
+                          click: function($event) {
+                            return _vm.sortBy("place")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                駐車場所\n                            "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
-                  _c("th", [_vm._v("コメント")]),
+                  _c("th", [
+                    _c(
+                      "button",
+                      {
+                        class: _vm.sortedClass("comment"),
+                        on: {
+                          click: function($event) {
+                            return _vm.sortBy("comment")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                                コメント\n                            "
+                        )
+                      ]
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("th")
                 ])
@@ -39275,7 +39419,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.addresses, function(address) {
+                _vm._l(_vm.sortedAdresses, function(address) {
                   return _c("tr", { key: address.id }, [
                     _c("td", [
                       _vm._v(
@@ -39325,7 +39469,24 @@ var render = function() {
                 0
               )
             ])
-          ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "v-row",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.message,
+                  expression: "message"
+                }
+              ],
+              staticClass: "mt-2",
+              attrs: { id: "message", justify: "start" }
+            },
+            [_c("p", [_vm._v("エラーメッセージ: " + _vm._s(_vm.message))])]
+          )
         ],
         1
       )
@@ -39531,7 +39692,7 @@ var render = function() {
               staticClass: "mt-2",
               attrs: { id: "message", justify: "start" }
             },
-            [_c("p", [_vm._v(_vm._s(_vm.message))])]
+            [_c("p", [_vm._v("エラーメッセージ: " + _vm._s(_vm.message))])]
           )
         ],
         1
@@ -39704,7 +39865,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    attrs: { ckass: _vm.sortedClass("id") },
+                    class: _vm.sortedClass("id"),
                     on: {
                       click: function($event) {
                         return _vm.sortBy("id")
@@ -39723,7 +39884,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    attrs: { ckass: _vm.sortedClass("name") },
+                    class: _vm.sortedClass("name"),
                     on: {
                       click: function($event) {
                         return _vm.sortBy("name")
@@ -39742,7 +39903,7 @@ var render = function() {
                 _c(
                   "button",
                   {
-                    attrs: { ckass: _vm.sortedClass("email") },
+                    class: _vm.sortedClass("email"),
                     on: {
                       click: function($event) {
                         return _vm.sortBy("email")
@@ -39794,7 +39955,24 @@ var render = function() {
             }),
             0
           )
-        ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.message,
+                expression: "message"
+              }
+            ],
+            staticClass: "row mt-2",
+            attrs: { justify: "start", id: "message" }
+          },
+          [_c("p", [_vm._v("エラーメッセージ: " + _vm._s(_vm.message))])]
+        )
       ])
     ])
   ])

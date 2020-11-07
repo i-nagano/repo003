@@ -48,16 +48,36 @@
                 <table class="table table-sm table-responsive">
                     <thead>
                         <tr>
-                            <th>駐車日時</th>
-                            <th>担当者名</th>
-                            <th>自車名</th>
-                            <th>駐車場所</th>
-                            <th>コメント</th>
+                            <th>
+                                <button v-on:click="sortBy('parkdate')" v-bind:class="sortedClass('parkdate')">
+                                    駐車日時
+                                </button>
+                            </th>
+                            <th>
+                                <button v-on:click="sortBy('member_name')" v-bind:class="sortedClass('member_name')">
+                                    担当者名
+                                </button>
+                            </th>
+                            <th>
+                                <button v-on:click="sortBy('car_name')" v-bind:class="sortedClass('car_name')">
+                                    自車名
+                                </button>
+                            </th>
+                            <th>
+                                <button v-on:click="sortBy('place')" v-bind:class="sortedClass('place')">
+                                    駐車場所
+                                </button>
+                            </th>
+                            <th>
+                                <button v-on:click="sortBy('comment')" v-bind:class="sortedClass('comment')">
+                                    コメント
+                                </button>
+                            </th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="address in addresses" v-bind:key="address.id">
+                        <tr v-for="address in sortedAdresses" v-bind:key="address.id">
                             <td>
                                 {{ address.parkdate }}
                             </td>
@@ -80,6 +100,9 @@
                     </tbody>
                 </table>
             </v-row>
+            <v-row id="message" v-show="message" class="mt-2" justify="start">
+                <p>エラーメッセージ: {{ message }}</p>
+            </v-row>
         </v-container>
     </div>
 </template>
@@ -99,6 +122,10 @@
                 addresses: [],
                 comment: "",
                 message: "",
+                sort: {
+                    key: "", // ソートキー
+                    isAsc: false, // 昇順ならtrue,降順ならfalse
+                },
             };
         },
         mounted: function () {
@@ -106,7 +133,20 @@
             this.getMembers();
             this.getCars();
         },
-        computed: {},
+        computed: {
+            sortedAdresses: function () {
+                let list = this.addresses.slice();
+                // ソート実施
+                if (this.sort.key) {
+                    list.sort((a, b) => {
+                        a = a[this.sort.key];
+                        b = b[this.sort.key];
+                        return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1);
+                    });
+                }
+                return list;
+            },
+        },
         methods: {
             getAddresses() {
                 axios
@@ -167,6 +207,16 @@
                         this.message = error.response.data;
                         return console.log(error.response.data);
                     });
+            },
+            // sort用キーをセットし、昇順・降順を入れ替える
+            sortBy: function (key) {
+                this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false;
+                this.sort.key = key;
+            },
+            sortedClass: function (key) {
+                return this.sort.key === key ?
+                    `sorted ${this.sort.isAsc ? "asc" : "desc"}` :
+                    "";
             },
         },
     };

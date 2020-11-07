@@ -40,17 +40,17 @@
                     <thead>
                         <tr class="table-row">
                             <th>
-                                <button v-on:click="sortBy('id')" v-bind:ckass="sortedClass('id')">
+                                <button v-on:click="sortBy('id')" v-bind:class="sortedClass('id')">
                                     ID
                                 </button>
                             </th>
                             <th>
-                                <button v-on:click="sortBy('name')" v-bind:ckass="sortedClass('name')">
+                                <button v-on:click="sortBy('name')" v-bind:class="sortedClass('name')">
                                     名前
                                 </button>
                             </th>
                             <th>
-                                <button v-on:click="sortBy('email')" v-bind:ckass="sortedClass('email')">
+                                <button v-on:click="sortBy('email')" v-bind:class="sortedClass('email')">
                                     E-mail
                                 </button>
                             </th>
@@ -74,6 +74,9 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="row mt-2" justify="start" id="message" v-show="message">
+                    <p>エラーメッセージ: {{ message }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -88,6 +91,7 @@
                 name: "",
                 email: "",
                 members: [],
+                message: "",
                 sort: {
                     key: "", // ソートキー
                     isAsc: false, // 昇順ならtrue,降順ならfalse
