@@ -46,13 +46,13 @@
                                 {{ car.number }}
                             </td>
                             <td>
-                                <a href="">編集</a>
+                                <button v-on:click="openModal(car)">編集</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </v-row>
-            <!-- <modal-car v-bind:data="carData" v-show="showContent" v-on:close="closeModal"></modal-car> -->
+            <car-modal v-bind:carData="carUpdate" v-on:input="childeCar=$event" v-show="showContent" v-on:close="closeModal"></car-modal>
             <v-row id="message" v-show="message" class="mt-2" justify="start">
                 <p>エラーメッセージ: {{ message }}</p>
             </v-row>
@@ -61,19 +61,20 @@
 </template>
 
 <script>
-    // import CarModal from './components/modals/CarModal.vue';
+    import CarModal from './modals/CarModal.vue';
     export default {
         name: 'Cars',
         components: {
-           // CarModal,
+           CarModal,
         },
         data: function () {
             return {
+                showContent: false,
                 message: "",
                 name: "",
                 number: "",
                 cars: [],
-                carData: "",
+                carUpdate: "",
                 keyword: "",
             };
         },
@@ -122,6 +123,13 @@
                 }
                 return cars;
             },
+            openModal(car) {
+                this.showContent = true;
+                this.carUpdate = car;
+            },
+            closeModal(car) {
+                this.showContent = false;
+            },
         },
         computed: {
             filterCars: function () {
@@ -135,6 +143,4 @@
     ul {
         list-style: none;
     }
-
-    ;
 </style>
