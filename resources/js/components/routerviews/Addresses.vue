@@ -7,7 +7,7 @@
             <v-row>
                 <ul>
                     <li>
-                        <label for="parkdate">駐車日時:</label>
+                        <label for="parkdate">駐車日:</label>
                         <input type="date" name="parkdate" id="parkdate" v-model="$data.parkdate" />
                     </li>
                     <li>
@@ -50,12 +50,12 @@
                         <tr>
                             <th>
                                 <button v-on:click="sortBy('parkdate')" v-bind:class="sortedClass('parkdate')">
-                                    駐車日時
+                                    駐車日
                                 </button>
                             </th>
                             <th>
                                 <button v-on:click="sortBy('member_name')" v-bind:class="sortedClass('member_name')">
-                                    担当者名
+                                    担当者
                                 </button>
                             </th>
                             <th>

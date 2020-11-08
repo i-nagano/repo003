@@ -2501,14 +2501,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+// import MemberModal from './modals/MemberModal.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Members",
-  components: {},
+  components: {// MemberModal,
+  },
   data: function data() {
     return {
+      showContent: false,
       name: "",
       email: "",
       members: [],
+      memberUpdate: "",
       message: "",
       sort: {
         key: "",
@@ -2590,6 +2595,13 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return members;
+    },
+    openModal: function openModal(member) {
+      this.showContent = true;
+      this.memberUpdate = member;
+    },
+    closeModal: function closeModal(member) {
+      this.showContent = false;
     }
   }
 });
@@ -39240,7 +39252,7 @@ var render = function() {
             _c("ul", [
               _c("li", [
                 _c("label", { attrs: { for: "parkdate" } }, [
-                  _vm._v("駐車日時:")
+                  _vm._v("駐車日:")
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -39469,7 +39481,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                駐車日時\n                            "
+                          "\n                                駐車日\n                            "
                         )
                       ]
                     )
@@ -39488,7 +39500,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                                担当者名\n                            "
+                          "\n                                担当者\n                            "
                         )
                       ]
                     )
@@ -39838,7 +39850,7 @@ var render = function() {
             attrs: { carData: _vm.carUpdate },
             on: {
               input: function($event) {
-                _vm.childeCar = $event
+                _vm.childCar = $event
               },
               close: _vm.closeModal
             }

@@ -74,6 +74,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <!-- <member-modal v-bind:memberData="memberUpdate" v-on:input="childMember=$event" v-show="showContent" v-on:close="closeModal"></member-modal> -->
                 <div class="row mt-2" justify="start" id="message" v-show="message">
                     <p>エラーメッセージ: {{ message }}</p>
                 </div>
@@ -83,14 +84,19 @@
 </template>
 
 <script>
+    // import MemberModal from './modals/MemberModal.vue';
     export default {
         name: "Members",
-        components: {},
+        components: {
+            // MemberModal,
+        },
         data: function () {
             return {
+                showContent: false,
                 name: "",
                 email: "",
                 members: [],
+                memberUpdate: "",
                 message: "",
                 sort: {
                     key: "", // ソートキー
@@ -170,6 +176,13 @@
                     }
                 }
                 return members;
+            },
+            openModal(member) {
+                this.showContent = true;
+                this.memberUpdate = member;
+            },
+            closeModal(member) {
+                this.showContent = false;
             },
         },
     };
