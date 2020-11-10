@@ -52,15 +52,14 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member, $id)
     {
-        $member = Member::where('id', $id)->first();
         $update = [
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
             ];
-        $member->update($update);
+        Member::where('id', $id)->update($update);
 
-        // 上記 $update, $member->update($update) は以下の処理と同じ。
-        // $member = Member::where('id', $id);
+        // 上記 $update, Member::where('id', $id)->update($update) は以下の処理と同じ。
+        // $member = Member::where('id', $id)->first();
         // $member->name = $request->name;
         // $member->email = $request->email;
         // $member->save();

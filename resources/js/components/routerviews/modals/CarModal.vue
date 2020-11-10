@@ -65,7 +65,7 @@
                         data: params
                     })
                     .then(response => {
-                        alert("「" + params.name + ", " + params.number + "」削除成功");
+                        alert("「" + params.name + ", " + params.number + "」削除完了");
                         this.$emit('close');
                         this.$emit('update');
                     })

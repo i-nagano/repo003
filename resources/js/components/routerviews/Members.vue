@@ -7,7 +7,7 @@
             <div class="row mt-2" justify="start">
                 <ul>
                     <li>
-                        <label for="name">名前:</label>
+                        <label for="name">担当者:</label>
                         <input type="text" name="name" id="name" v-model="name" />
                     </li>
                     <li>
@@ -46,7 +46,7 @@
                             </th>
                             <th>
                                 <button v-on:click="sortBy('name')" v-bind:class="sortedClass('name')">
-                                    名前
+                                    担当者
                                 </button>
                             </th>
                             <th>
@@ -69,12 +69,12 @@
                                 {{ member.email }}
                             </td>
                             <td>
-                                <a href="">編集</a>
+                                <button v-on:click="openModal(member)">編集</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <!-- <member-modal v-bind:memberData="memberUpdate" v-on:input="childMember=$event" v-show="showContent" v-on:close="closeModal"></member-modal> -->
+                <member-modal v-bind:memberData="memberUpdate" v-on:input="childMember=$event" v-show="showContent" v-on:close="closeModal" v-on:update="getMembers"></member-modal>
                 <div class="row mt-2" justify="start" id="message" v-show="message">
                     <p>エラーメッセージ: {{ message }}</p>
                 </div>
@@ -84,11 +84,11 @@
 </template>
 
 <script>
-    // import MemberModal from './modals/MemberModal.vue';
+    import MemberModal from './modals/MemberModal.vue';
     export default {
         name: "Members",
         components: {
-            // MemberModal,
+            MemberModal,
         },
         data: function () {
             return {
