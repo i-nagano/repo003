@@ -29,3 +29,10 @@ Route::post('/members', [MemberController::class, 'store'])->name('postmember');
 Route::post('/cars', [CarController::class, 'store'])->name('postcar');
 Route::post('/addresses', [AddressController::class, 'store'])->name('postaddress');
 
+Route::put('/members/{id}', [MemberController::class, 'update'])->name('updatemember');
+Route::put('/cars/{id}', [CarController::class, 'update'])->name('updatecar');
+Route::put('/addresses/{id}', [AddressController::class, 'update'])->name('updateaddress');
+
+Route::delete('/members/{id}', [MemberController::class, 'destroy'])->name('destroymember');
+Route::delete('/cars/{id}', [CarController::class, 'destroy'])->name('destroycar');
+Route::delete('/addresses/{id}', [AddressController::class, 'destroy'])->name('destroyaddress');

@@ -52,7 +52,7 @@ class MemberController extends Controller
      */
     public function update(Request $request, Member $member, $id)
     {
-        $member = Member::where('id', $id);
+        $member = Member::where('id', $id)->first();
         $update = [
             'name' => $request->name,
             'email' => $request->email
@@ -74,7 +74,7 @@ class MemberController extends Controller
      */
     public function destroy(Member $member, $id)
     {
-        $member = Member::where('id', $id);
-        $member->destroy();
+        $member = Member::where('id', $id)->first();
+        $member->delete();
     }
 }

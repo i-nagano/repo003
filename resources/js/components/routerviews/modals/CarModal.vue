@@ -15,8 +15,8 @@
                         <label>自車No.: </label>
                         <input type="text" v-model="childCar.number">
                     </li>
-                    <!-- <button v-on:click="$emit('close')">更新</button>
-                    <button v-on:click="$emit('close')">削除</button> -->
+                    <button v-on:click="updateCar">更新</button>
+                    <button v-on:click="deleteCar">削除</button>
                     <button v-on:click="$emit('close')">閉じる</button>
                 </ul>
             </div>
@@ -30,7 +30,6 @@
         components: {},
         data: function () {
             return {
-
             };
         },
         props: {
@@ -38,24 +37,43 @@
         },
         methods: {
             updateCar() {
-                let id = this.data.id;
+                let id = this.childCar.id;
                 let modify = {
-                    name: this.data.name,
-                    number: this.data.number,
+                    name: this.childCar.name,
+                    number: this.childCar.number,
                 };
                 axios
                     .put('/api/cars/' + id, modify)
-                    .then(res => {
-                        alert("「" + modify.name + "」更新完了");
-                        this.$router.push({
-                            path: '/Cars'
-                        });
+                    .then(response => {
+                        alert("「" + modify.name + ", " + modify.number + "」更新完了");
+                        this.$emit('close');
+                        this.$emit('update');
                     })
                     .catch(error => {
-                        alert("「" + modify.name + "」更新失敗");
+                        alert("「" + modify.name + ", " + modify.number + "」更新失敗");
                         console.log(error, id, modify);
                     });
-            }
+            },
+            deleteCar() {
+                let id = this.childCar.id;
+                let params = {
+                    name: this.childCar.name,
+                    number: this.childCar.number,
+                };
+                axios
+                    .delete('/api/cars/' + id, {
+                        data: params
+                    })
+                    .then(response => {
+                        alert("「" + params.name + ", " + params.number + "」削除成功");
+                        this.$emit('close');
+                        this.$emit('update');
+                    })
+                    .catch(error => {
+                        alert("「" + params.name + ", " + params.number + "」削除失敗");
+                        console.log(error, id, params);
+                    });
+            },
         },
         computed: {
             childCar: {

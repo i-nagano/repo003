@@ -55,7 +55,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, Address $address, $id)
     {
-        $address = Address::where('id', $id);
+        $address = Address::where('id', $id)->first();
         $update = [
             'parkdate' => $request->parkdate,
             'member_name' => $request->member_name,
@@ -74,7 +74,7 @@ class AddressController extends Controller
      */
     public function destroy(Address $address, $id)
     {
-        $address = Address::where('id', $id);
-        $address->destroy();
+        $address = Address::where('id', $id)->first();
+        $address->delete();
     }
 }

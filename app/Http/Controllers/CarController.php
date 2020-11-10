@@ -52,7 +52,8 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car, $id)
     {
-        $car = Car::where('id', $id);
+        // $car = Car::where('id', $id)->first();
+        $car = Car::find($id);
         $car->name = $request->name;
         $car->number = $request->number;
         $car->save();
@@ -66,7 +67,8 @@ class CarController extends Controller
      */
     public function destroy(Car $car, $id)
     {
-        $car = Car::where('id', $id);
-        $car->destroy();
+        // $car = Car::where('id', $id)->first();
+        $car = Car::find($id);
+        $car->delete();
     }
 }

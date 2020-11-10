@@ -2656,20 +2656,41 @@ __webpack_require__.r(__webpack_exports__);
     updateCar: function updateCar() {
       var _this = this;
 
-      var id = this.data.id;
+      var id = this.childCar.id;
       var modify = {
-        name: this.data.name,
-        number: this.data.number
+        name: this.childCar.name,
+        number: this.childCar.number
       };
-      axios.put('/api/cars/' + id, modify).then(function (res) {
-        alert("「" + modify.name + "」更新完了");
+      axios.put('/api/cars/' + id, modify).then(function (response) {
+        alert("「" + modify.name + ", " + modify.number + "」更新完了");
 
-        _this.$router.push({
-          path: '/Cars'
-        });
+        _this.$emit('close');
+
+        _this.$emit('update');
       })["catch"](function (error) {
-        alert("「" + modify.name + "」更新失敗");
+        alert("「" + modify.name + ", " + modify.number + "」更新失敗");
         console.log(error, id, modify);
+      });
+    },
+    deleteCar: function deleteCar() {
+      var _this2 = this;
+
+      var id = this.childCar.id;
+      var params = {
+        name: this.childCar.name,
+        number: this.childCar.number
+      };
+      axios["delete"]('/api/cars/' + id, {
+        data: params
+      }).then(function (response) {
+        alert("「" + params.name + ", " + params.number + "」削除成功");
+
+        _this2.$emit('close');
+
+        _this2.$emit('update');
+      })["catch"](function (error) {
+        alert("「" + params.name + ", " + params.number + "」削除失敗");
+        console.log(error, id, params);
       });
     }
   },
@@ -39852,7 +39873,8 @@ var render = function() {
               input: function($event) {
                 _vm.childCar = $event
               },
-              close: _vm.closeModal
+              close: _vm.closeModal,
+              update: _vm.getCars
             }
           }),
           _vm._v(" "),
@@ -40278,6 +40300,10 @@ var render = function() {
               }
             })
           ]),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.updateCar } }, [_vm._v("更新")]),
+          _vm._v(" "),
+          _c("button", { on: { click: _vm.deleteCar } }, [_vm._v("削除")]),
           _vm._v(" "),
           _c(
             "button",

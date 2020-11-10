@@ -52,7 +52,7 @@
                     </tbody>
                 </table>
             </v-row>
-            <car-modal v-bind:carData="carUpdate" v-on:input="childCar=$event" v-show="showContent" v-on:close="closeModal"></car-modal>
+            <car-modal v-bind:carData="carUpdate" v-on:input="childCar=$event" v-show="showContent" v-on:close="closeModal" v-on:update="getCars"></car-modal>
             <v-row id="message" v-show="message" class="mt-2" justify="start">
                 <p>エラーメッセージ: {{ message }}</p>
             </v-row>
@@ -65,7 +65,7 @@
     export default {
         name: 'Cars',
         components: {
-           CarModal,
+            CarModal,
         },
         data: function () {
             return {
