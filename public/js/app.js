@@ -2157,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
     getAddresses: function getAddresses() {
       var _this2 = this;
 
-      axios.get("/api/addresses").then(function (response) {
+      axios.get('/api/addresses').then(function (response) {
         _this2.addresses = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
@@ -2168,7 +2168,7 @@ __webpack_require__.r(__webpack_exports__);
     getMembers: function getMembers() {
       var _this3 = this;
 
-      axios.get("/api/members").then(function (response) {
+      axios.get('/api/members').then(function (response) {
         _this3.members = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
@@ -2179,7 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
     getCars: function getCars() {
       var _this4 = this;
 
-      axios.get("/api/cars").then(function (response) {
+      axios.get('/api/cars').then(function (response) {
         _this4.cars = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
@@ -2190,7 +2190,7 @@ __webpack_require__.r(__webpack_exports__);
     postAddress: function postAddress() {
       var _this5 = this;
 
-      axios.post("/api/addresses", {
+      axios.post('/api/addresses', {
         parkdate: this.parkdate,
         member_name: this.member_name,
         car_name: this.car_name,
@@ -2320,7 +2320,7 @@ __webpack_require__.r(__webpack_exports__);
     getCars: function getCars() {
       var _this = this;
 
-      axios.get("/api/cars").then(function (response) {
+      axios.get('/api/cars').then(function (response) {
         _this.cars = response.data;
         return console.log(response.data);
       })["catch"](function (error) {
@@ -2331,7 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
     postCar: function postCar() {
       var _this2 = this;
 
-      axios.post("/api/cars", {
+      axios.post('/api/cars', {
         name: this.name,
         number: this.number
       }).then(function (response) {

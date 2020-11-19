@@ -150,7 +150,7 @@
         methods: {
             getAddresses() {
                 axios
-                    .get("/api/addresses")
+                    .get('/api/addresses')
                     .then(response => {
                         this.addresses = response.data;
                         return console.log(response.data);
@@ -162,7 +162,7 @@
             },
             getMembers() {
                 axios
-                    .get("/api/members")
+                    .get('/api/members')
                     .then(response => {
                         this.members = response.data;
                         return console.log(response.data);
@@ -174,7 +174,7 @@
             },
             getCars() {
                 axios
-                    .get("/api/cars")
+                    .get('/api/cars')
                     .then(response => {
                         this.cars = response.data;
                         return console.log(response.data);
@@ -186,7 +186,7 @@
             },
             postAddress() {
                 axios
-                    .post("/api/addresses", {
+                    .post('/api/addresses', {
                         parkdate: this.parkdate,
                         member_name: this.member_name,
                         car_name: this.car_name,

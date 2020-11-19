@@ -84,7 +84,7 @@
         methods: {
             getCars() {
                 axios
-                    .get("/api/cars")
+                    .get('/api/cars')
                     .then(response => {
                         this.cars = response.data;
                         return console.log(response.data);
@@ -96,7 +96,7 @@
             },
             postCar() {
                 axios
-                    .post("/api/cars", {
+                    .post('/api/cars', {
                         name: this.name,
                         number: this.number,
                     })
