@@ -108,6 +108,7 @@
 </template>
 
 <script>
+    import axios from './axios-auth.js';
     export default {
         name: "Addresses",
         components: {},

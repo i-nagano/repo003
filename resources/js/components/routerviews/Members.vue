@@ -84,6 +84,7 @@
 </template>
 
 <script>
+    import axios from './axios-auth.js';
     import MemberModal from './modals/MemberModal.vue';
     export default {
         name: "Members",

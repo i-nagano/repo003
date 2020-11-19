@@ -61,6 +61,7 @@
 </template>
 
 <script>
+    import axios from './axios-auth.js';
     import CarModal from './modals/CarModal.vue';
     export default {
         name: 'Cars',
