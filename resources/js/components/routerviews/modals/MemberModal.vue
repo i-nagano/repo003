@@ -1,5 +1,5 @@
 <template>
-    <div id="overlay">
+    <div id="overlay" v-on:click="$emit('close')">
         <div id="content">
             <div class="row mt-2" justify="start">
                 <ul>

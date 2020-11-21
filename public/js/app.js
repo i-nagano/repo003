@@ -40413,104 +40413,118 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "overlay" } }, [
-    _c("div", { attrs: { id: "content" } }, [
-      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
-        _c("ul", [
-          _c("li", [
-            _c("label", [_vm._v("ID: ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childCar.id,
-                  expression: "childCar.id"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childCar.id },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+  return _c(
+    "div",
+    {
+      attrs: { id: "overlay" },
+      on: {
+        click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
+          return _vm.$emit("close")
+        }
+      }
+    },
+    [
+      _c("div", { attrs: { id: "content" } }, [
+        _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
+          _c("ul", [
+            _c("li", [
+              _c("label", [_vm._v("ID: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childCar.id,
+                    expression: "childCar.id"
                   }
-                  _vm.$set(_vm.childCar, "id", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("label", [_vm._v("自車名: ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childCar.name,
-                  expression: "childCar.name"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childCar.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childCar.id },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childCar, "id", $event.target.value)
                   }
-                  _vm.$set(_vm.childCar, "name", $event.target.value)
                 }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("label", [_vm._v("自車No.: ")]),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childCar.number,
-                  expression: "childCar.number"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childCar.number },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("li", [
+              _c("label", [_vm._v("自車名: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childCar.name,
+                    expression: "childCar.name"
                   }
-                  _vm.$set(_vm.childCar, "number", $event.target.value)
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childCar.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childCar, "name", $event.target.value)
+                  }
                 }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("button", { on: { click: _vm.updateCar } }, [_vm._v("更新")]),
-          _vm._v(" "),
-          _c("button", { on: { click: _vm.deleteCar } }, [_vm._v("削除")]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.$emit("close")
+              })
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("label", [_vm._v("自車No.: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childCar.number,
+                    expression: "childCar.number"
+                  }
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childCar.number },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childCar, "number", $event.target.value)
+                  }
                 }
-              }
-            },
-            [_vm._v("閉じる")]
-          )
+              })
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.updateCar } }, [_vm._v("更新")]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.deleteCar } }, [_vm._v("削除")]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("close")
+                  }
+                }
+              },
+              [_vm._v("閉じる")]
+            )
+          ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -40534,104 +40548,115 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "overlay" } }, [
-    _c("div", { attrs: { id: "content" } }, [
-      _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
-        _c("ul", [
-          _c("li", [
-            _c("label", [_vm._v("ID: ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childMember.id,
-                  expression: "childMember.id"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childMember.id },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+  return _c(
+    "div",
+    {
+      attrs: { id: "overlay" },
+      on: {
+        click: function($event) {
+          return _vm.$emit("close")
+        }
+      }
+    },
+    [
+      _c("div", { attrs: { id: "content" } }, [
+        _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
+          _c("ul", [
+            _c("li", [
+              _c("label", [_vm._v("ID: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childMember.id,
+                    expression: "childMember.id"
                   }
-                  _vm.$set(_vm.childMember, "id", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("label", [_vm._v("担当者: ")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childMember.name,
-                  expression: "childMember.name"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childMember.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childMember.id },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childMember, "id", $event.target.value)
                   }
-                  _vm.$set(_vm.childMember, "name", $event.target.value)
                 }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("label", [_vm._v("E-mail: ")]),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.childMember.email,
-                  expression: "childMember.email"
-                }
-              ],
-              attrs: { type: "text" },
-              domProps: { value: _vm.childMember.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("li", [
+              _c("label", [_vm._v("担当者: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childMember.name,
+                    expression: "childMember.name"
                   }
-                  _vm.$set(_vm.childMember, "email", $event.target.value)
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childMember.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childMember, "name", $event.target.value)
+                  }
                 }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("button", { on: { click: _vm.updateMember } }, [_vm._v("更新")]),
-          _vm._v(" "),
-          _c("button", { on: { click: _vm.deleteMember } }, [_vm._v("削除")]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              on: {
-                click: function($event) {
-                  return _vm.$emit("close")
+              })
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c("label", [_vm._v("E-mail: ")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.childMember.email,
+                    expression: "childMember.email"
+                  }
+                ],
+                attrs: { type: "text" },
+                domProps: { value: _vm.childMember.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.childMember, "email", $event.target.value)
+                  }
                 }
-              }
-            },
-            [_vm._v("閉じる")]
-          )
+              })
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.updateMember } }, [_vm._v("更新")]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.deleteMember } }, [_vm._v("削除")]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.$emit("close")
+                  }
+                }
+              },
+              [_vm._v("閉じる")]
+            )
+          ])
         ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -100598,8 +100623,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravel\cars-members\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\cars-members\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /opt/lampp/htdocs/laravel/cars-members/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel/cars-members/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
