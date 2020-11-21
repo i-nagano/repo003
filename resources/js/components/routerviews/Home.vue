@@ -12,12 +12,17 @@
                 </ul>
             </v-row>
         </v-container>
+        <google-maptest></google-maptest>
     </div>
 </template>
 
 <script>
+    import GoogleMaptest from './GoogleMaptest.vue'
     export default {
         name: "Home",
+        components: {
+            GoogleMaptest,
+        },
     };
 </script>
 
