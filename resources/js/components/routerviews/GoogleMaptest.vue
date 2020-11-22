@@ -15,6 +15,9 @@
                         <button v-on:click="getLatlng" class="btn btn-outline-dark">送信</button>
                     </li>
                     <li>
+                        <button v-on:click="getGeo" class="btn btn-outline-dark">取得</button>
+                    </li>
+                    <li>
                         <label for="locarion">緯度経度:</label>
                         <p v-for="location in result" v-bind:key="location.lat">{{ location }}</p>
                     </li>
@@ -29,6 +32,7 @@
 </template>
 
 <script>
+    import GoogleMapsApiLoader from 'google-maps-api-loader';
     export default {
         name: 'GoogleMaptest',
         data: function () {
@@ -57,6 +61,33 @@
                         this.message = error.response;
                         return console.log(error.response);
                     })
+            },
+            getGeo() {
+                let apiKey = this.apiKey;
+                let src = "https://maps.google.com/maps/api/js?key=" + apiKey;
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                        address: this.address,
+                        language: 'japanese',
+                        region: 'jp',
+                    },
+                    function (results, satus) {
+                        if (status === google.map.Geocoder.OK) {
+                            // 結果の表示範囲。結果が１つとは限らないので、LatLngBoundsで用意。
+                            let bounds = new google.maps.LatLngBounds();
+                            for (let i in results) {
+                                if (results[i].geometry) {
+                                    // 緯度経度を取得。
+                                    let latlng = results[i].geometry.location;
+                                    return console.log(latlng);
+                                    // 住所を取得(日本の場合だけ「日本, 」を削除)。
+                                    let address = results[0].formatted_address.replace(/^日本, /, '');
+                                    return console.log(address);
+                                };
+                            };
+                        }
+                    }
+                );
             },
         },
     };
