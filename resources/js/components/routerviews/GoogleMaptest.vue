@@ -15,7 +15,7 @@
                         <button v-on:click="getLatlng" class="btn btn-outline-dark">送信</button>
                     </li>
                     <li>
-                        <button v-on:click="getGeo" class="btn btn-outline-dark">取得</button>
+                        <button v-on:click="getLocation" class="btn btn-outline-dark">取得</button>
                     </li>
                     <li>
                         <label for="locarion">緯度経度:</label>
@@ -26,6 +26,9 @@
                         <p>{{ message }}</p>
                     </li>
                 </ul>
+            </v-row>
+            <v-row>
+                <div class="map" ref="googleMap"></div>
             </v-row>
         </v-container>
     </div>
@@ -42,15 +45,26 @@
                 location: "",
                 result: "",
                 message: "",
+                google: null,
+                mapConfig: {
+                    center: {
+                        lat: 35,
+                        lng: 139,
+                    },
+                    zoom: 15,
+                },
             };
         },
-        mounted: function () {},
+        mounted: function () {
+            this.getLocation();
+        },
         created: function () {},
         methods: {
             getLatlng() {
                 let address = this.address;
                 let apiKey = this.apiKey;
-                let getUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&language=Ja&key=' + apiKey;
+                let getUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address +
+                    '&language=Ja&key=' + apiKey;
                 axios
                     .get(getUrl)
                     .then(response => {
@@ -62,17 +76,20 @@
                         return console.log(error.response);
                     })
             },
-            getGeo() {
-                let apiKey = this.apiKey;
-                let src = "https://maps.google.com/maps/api/js?key=" + apiKey;
+            async getGeo() {
+                let google = await GoogleMapsApiLoader({
+                    apiKey: this.apiKey,
+                    addoress: this.address,
+                    libraries: ['places'],
+                });
                 let geocoder = new google.maps.Geocoder();
                 geocoder.geocode({
                         address: this.address,
                         language: 'japanese',
                         region: 'jp',
                     },
-                    function (results, satus) {
-                        if (status === google.map.Geocoder.OK) {
+                    function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
                             // 結果の表示範囲。結果が１つとは限らないので、LatLngBoundsで用意。
                             let bounds = new google.maps.LatLngBounds();
                             for (let i in results) {
@@ -89,6 +106,31 @@
                     }
                 );
             },
+            async getLocation() {
+                const google = await GoogleMapsApiLoader({
+                    apiKey: this.apiKey,
+                    address: this.address,
+                    libraries: ['places'],
+                });
+                const geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                        address: this.address,
+                        region: 'jp'
+                    },
+                    (results, status) => {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            let address = results[0].address_components;
+                            return console.log(address);
+                            let latlng = results[0].geometry.location;
+                            return console.log(latlng);
+                        };
+                    });
+                this.initializeMap();
+            },
+            initializeMap() {
+                // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+                new google.maps.Map(this.$refs.googleMap, this.mapConfig);
+            },
         },
     };
 </script>
@@ -96,5 +138,10 @@
 <style scoped>
     ul {
         list-style: none;
+    }
+
+    .map {
+        width: 60vw;
+        height: 50vh;
     }
 </style>
