@@ -37,9 +37,13 @@
                         <label for="lat">経度:</label>
                         <input type="text" v-model="mapConfig.center.lng">
                     </li>
+                    <li>
+                        <div id="map" class="map"></div>
+                    </li>
+                    <li>
+                        <div class="map" ref="googleMap"></div>
+                    </li>
                 </ul>
-                <div id="map" class="map"></div>
-                <div class="map" ref="googleMap"></div>
             </v-row>
         </v-container>
     </div>
