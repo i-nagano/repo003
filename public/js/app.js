@@ -2447,6 +2447,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'GoogleMaptest',
@@ -2460,15 +2471,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       google: null,
       mapConfig: {
         center: {
-          lat: 35,
-          lng: 139
+          lat: 35.68,
+          lng: 139.76
         },
         zoom: 15
-      }
+      },
+      map: {},
+      geocoder: {},
+      marker: null // lat: '35',
+      // lng: '139',
+
     };
   },
   mounted: function mounted() {
-    this.getLocation();
+    this.getLocation(); // this.initMap();
   },
   created: function created() {},
   methods: {
@@ -2486,7 +2502,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return console.log(error.response);
       });
     },
-    getGeo: function getGeo() {
+    // async getGeo() {
+    //     let google = await GoogleMapsApiLoader({
+    //         apiKey: this.apiKey,
+    //         addoress: this.address,
+    //         libraries: ['places'],
+    //     });
+    //     let geocoder = new google.maps.Geocoder();
+    //     geocoder.geocode({
+    //             address: this.address,
+    //             language: 'japanese',
+    //             region: 'jp',
+    //         },
+    //         function (results, status) {
+    //             if (status === google.maps.GeocoderStatus.OK) {
+    //                 // 結果の表示範囲。結果が１つとは限らないので、LatLngBoundsで用意。
+    //                 let bounds = new google.maps.LatLngBounds();
+    //                 for (let i in results) {
+    //                     if (results[i].geometry) {
+    //                         // 緯度経度を取得。
+    //                         let latlng = results[i].geometry.location;
+    //                         return console.log(latlng);
+    //                         // 住所を取得(日本の場合だけ「日本, 」を削除)。
+    //                         let address = results[0].formatted_address.replace(/^日本, /, '');
+    //                         return console.log(address);
+    //                     };
+    //                 };
+    //             }
+    //         }
+    //     );
+    // },
+    getLocation: function getLocation() {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
@@ -2498,7 +2544,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return google_maps_api_loader__WEBPACK_IMPORTED_MODULE_1___default()({
                   apiKey: _this2.apiKey,
-                  addoress: _this2.address,
+                  // address: this.address,
                   libraries: ['places']
                 });
 
@@ -2507,31 +2553,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 geocoder = new google.maps.Geocoder();
                 geocoder.geocode({
                   address: _this2.address,
-                  language: 'japanese',
                   region: 'jp'
                 }, function (results, status) {
                   if (status === google.maps.GeocoderStatus.OK) {
-                    // 結果の表示範囲。結果が１つとは限らないので、LatLngBoundsで用意。
-                    var bounds = new google.maps.LatLngBounds();
-
-                    for (var i in results) {
-                      if (results[i].geometry) {
-                        // 緯度経度を取得。
-                        var latlng = results[i].geometry.location;
-                        return console.log(latlng); // 住所を取得(日本の場合だけ「日本, 」を削除)。
-
-                        var address = results[0].formatted_address.replace(/^日本, /, '');
-                        return console.log(address);
-                      }
-
-                      ;
-                    }
-
-                    ;
+                    // 緯度経度の取得
+                    // this.lat = results[0].geometry.location.lat();
+                    // this.lng = results[0].geometry.location.lng();
+                    var lat = _this2.mapConfig.center.lat = results[0].geometry.location.lat();
+                    var lng = _this2.mapConfig.center.lng = results[0].geometry.location.lng();
+                    var address = results[0].address_components;
+                    var latlng = results[0].geometry.location;
+                    return console.log(address, latlng, lat, lng);
                   }
+
+                  ;
                 });
 
-              case 5:
+                _this2.initializeMap();
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -2539,11 +2579,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee);
       }))();
     },
-    getLocation: function getLocation() {
+    initializeMap: function initializeMap() {
+      // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+      this.map = new google.maps.Map(this.$refs.googleMap, this.mapConfig);
+      this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
+    },
+    // initMap() {
+    //     this.map = google.maps.Map(document.getElementById('map'));
+    //     this.geocoder = new google.maps.Geocoder();
+    // },
+    mapSearch: function mapSearch() {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var google, geocoder;
+        var google;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2557,22 +2606,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 google = _context2.sent;
-                geocoder = new google.maps.Geocoder();
-                geocoder.geocode({
-                  address: _this3.address,
-                  region: 'jp'
+                _this3.map = new google.maps.Map(document.getElementById('map'));
+                _this3.geocoder = new google.maps.Geocoder();
+
+                _this3.geocoder.geocode({
+                  'address': _this3.address
                 }, function (results, status) {
                   if (status === google.maps.GeocoderStatus.OK) {
-                    var address = results[0].address_components;
-                    return console.log(address);
-                    var latlng = results[0].geometry.location;
-                    return console.log(latlng);
+                    _this3.map.setCenter(results[0].geometry.location); // 緯度経度の取得
+
+
+                    _this3.lat = results[0].geometry.location.lat();
+                    _this3.lng = results[0].geometry.location.lng();
+                    _this3.marker = new google.maps.Marker({
+                      map: _this3.map,
+                      position: results[0].geometry.location
+                    });
                   }
 
                   ;
                 });
-
-                _this3.initializeMap();
 
               case 6:
               case "end":
@@ -2581,10 +2634,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee2);
       }))();
-    },
-    initializeMap: function initializeMap() {
-      // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
-      new google.maps.Map(this.$refs.googleMap, this.mapConfig);
     }
   }
 });
@@ -7515,7 +7564,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-09dcb650] {\n    list-style: none;\n}\n.map[data-v-09dcb650] {\n    width: 60vw;\n    height: 50vh;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-09dcb650] {\n    list-style: none;\n}\n#map[data-v-09dcb650] {\n    width: 60vw;\n    height: 50vh;\n}\n.map[data-v-09dcb650] {\n    width: 60vw;\n    height: 50vh;\n}\n", ""]);
 
 // exports
 
@@ -42507,50 +42556,71 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-outline-dark",
-                    on: { click: _vm.getLatlng }
-                  },
-                  [_vm._v("送信")]
-                )
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-dark",
                     on: { click: _vm.getLocation }
                   },
                   [_vm._v("取得")]
                 )
-              ]),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c("label", { attrs: { for: "locarion" } }, [
-                    _vm._v("緯度経度:")
-                  ]),
-                  _vm._v(" "),
-                  _vm._l(_vm.result, function(location) {
-                    return _c("p", { key: location.lat }, [
-                      _vm._v(_vm._s(location))
-                    ])
-                  })
-                ],
-                2
-              ),
-              _vm._v(" "),
-              _c("li", [
-                _c("label", { attrs: { for: "message" } }, [
-                  _vm._v("メッセージ:")
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.message))])
               ])
             ])
           ]),
           _vm._v(" "),
-          _c("v-row", [_c("div", { ref: "googleMap", staticClass: "map" })])
+          _c("v-row", { staticClass: "mt-2", attrs: { justify: "start" } }, [
+            _c("ul", [
+              _c("li", [
+                _c("label", { attrs: { for: "lat" } }, [_vm._v("緯度:")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.mapConfig.center.lat,
+                      expression: "mapConfig.center.lat"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.mapConfig.center.lat },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.mapConfig.center, "lat", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c("label", { attrs: { for: "lat" } }, [_vm._v("経度:")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.mapConfig.center.lng,
+                      expression: "mapConfig.center.lng"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.mapConfig.center.lng },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.mapConfig.center, "lng", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "map", attrs: { id: "map" } }),
+            _vm._v(" "),
+            _c("div", { ref: "googleMap", staticClass: "map" })
+          ])
         ],
         1
       )
