@@ -170,13 +170,13 @@
             async mapSearch() {
                 let google = await GoogleMapsApiLoader({
                     apiKey: this.apiKey,
-                    address: this.address,
+                    // address: this.address,
                     libraries: ['places'],
                 });
                 this.map = new google.maps.Map(document.getElementById('map'));
                 this.geocoder = new google.maps.Geocoder();
                 this.geocoder.geocode({
-                    'address': this.address
+                    address: this.address
                 }, (results, status) => {
                     if (status === google.maps.GeocoderStatus.OK) {
                         this.map.setCenter(results[0].geometry.location);

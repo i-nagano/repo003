@@ -4,6 +4,7 @@ import Home from './components/routerviews/Home.vue';
 import Members from './components/routerviews/Members.vue';
 import Cars from './components/routerviews/Cars.vue';
 import Addresses from './components/routerviews/Addresses.vue';
+import DestinationMap from './components/routerviews/DestinationMap.vue';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
             name: 'Addresses',
             path: '/addresses',
             component: Addresses
+        },
+        {
+            name: 'DestinationMap',
+            path: '/:id/destinationmap',
+            component: DestinationMap,
         },
     ],
 });

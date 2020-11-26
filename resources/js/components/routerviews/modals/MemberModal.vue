@@ -35,6 +35,16 @@
         props: {
             memberData: '',
         },
+        computed: {
+            childMember: {
+                get: function () {
+                    return this.memberData;
+                },
+                set: function (newMemberData) {
+                    this.$emit('input', newMemberData);
+                },
+            },
+        },
         methods: {
             updateMember() {
                 let id = this.childMember.id;
@@ -75,18 +85,7 @@
                     });
             },
         },
-        computed: {
-            childMember: {
-                get: function () {
-                    return this.memberData;
-                },
-                set: function (newMemberData) {
-                    this.$emit('input', newMemberData);
-                },
-            },
-        },
     };
-
 </script>
 
 <style>

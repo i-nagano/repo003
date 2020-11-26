@@ -36,6 +36,16 @@
         props: {
             carData: '',
         },
+        computed: {
+            childCar: {
+                get: function () {
+                    return this.carData;
+                },
+                set: function (newCarData) {
+                    this.$emit("input", newCarData);
+                }
+            },
+        },
         methods: {
             updateCar() {
                 let id = this.childCar.id;
@@ -74,16 +84,6 @@
                         alert("「" + params.name + ", " + params.number + "」削除失敗");
                         console.log(error, id, params);
                     });
-            },
-        },
-        computed: {
-            childCar: {
-                get: function () {
-                    return this.carData;
-                },
-                set: function (newCarData) {
-                    this.$emit("input", newCarData);
-                }
             },
         },
     };

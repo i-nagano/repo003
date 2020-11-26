@@ -88,7 +88,9 @@
                                 {{ address.car_name }}
                             </td>
                             <td>
-                                {{ address.place }}
+                                <router-link :to="{name: 'DestinationMap', params: { id: address.id }}">編集
+                                    {{ address.place }}
+                                </router-link>
                             </td>
                             <td>
                                 {{ address.comment }}
@@ -109,9 +111,15 @@
 
 <script>
     import axios from './axios-auth.js';
+    import DestinationMap from './DestinationMap.vue';
+    import AddressModal from './modals/AddressModal.vue';
     export default {
         name: "Addresses",
-        components: {},
+        components: {
+            DestinationMap,
+            AddressModal,
+        },
+        props: {},
         data: function () {
             return {
                 parkdate: "",
@@ -221,6 +229,7 @@
             },
         },
     };
+
 </script>
 
 <style scoped>
