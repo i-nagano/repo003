@@ -76,12 +76,12 @@
                 });
             },
             async mapSearch() {
-                const google = await GoogleMapsApiLoader({
+                let google = await GoogleMapsApiLoader({
                     apiKey: this.apiKey,
                     libraries: ['places'],
                 });
-                const geocoder = new google.maps.Geocoder();
-                geocoder.geocode({
+                let geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({
                         address: this.address.place,
                         region: 'jp'
                     },

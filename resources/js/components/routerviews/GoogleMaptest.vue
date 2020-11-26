@@ -40,9 +40,9 @@
                     <li>
                         <div id="map" class="map"></div>
                     </li>
-                    <li>
+                    <!-- <li>
                         <div class="map" ref="googleMap"></div>
-                    </li>
+                    </li> -->
                 </ul>
             </v-row>
         </v-container>
@@ -98,7 +98,6 @@
                     })
             },
 
-
             // async getGeo() {
             //     let google = await GoogleMapsApiLoader({
             //         apiKey: this.apiKey,
@@ -130,14 +129,13 @@
             //     );
             // },
 
-
             async getLocation() {
-                const google = await GoogleMapsApiLoader({
+                let google = await GoogleMapsApiLoader({
                     apiKey: this.apiKey,
                     // address: this.address,
                     libraries: ['places'],
                 });
-                const geocoder = new google.maps.Geocoder();
+                let geocoder = new google.maps.Geocoder();
                 geocoder.geocode({
                         address: this.address,
                         region: 'jp'
@@ -157,15 +155,14 @@
                 this.initializeMap();
             },
             initializeMap() {
-                // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
-                this.map = new google.maps.Map(this.$refs.googleMap, this.mapConfig);
                 this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
+                // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+                // this.map = new google.maps.Map(this.$refs.googleMap, this.mapConfig);
             },
             // initMap() {
             //     this.map = google.maps.Map(document.getElementById('map'));
             //     this.geocoder = new google.maps.Geocoder();
             // },
-
 
             async mapSearch() {
                 let google = await GoogleMapsApiLoader({

@@ -2739,9 +2739,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     initializeMap: function initializeMap() {
-      // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
-      this.map = new google.maps.Map(this.$refs.googleMap, this.mapConfig);
-      this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
+      this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig); // new this.google.maps.Map(this.$refs.googleMap, this.mapConfig);
+      // this.map = new google.maps.Map(this.$refs.googleMap, this.mapConfig);
     },
     // initMap() {
     //     this.map = google.maps.Map(document.getElementById('map'));
@@ -42445,7 +42444,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "編集\n                                " +
+                              "\n                                " +
                                 _vm._s(address.place) +
                                 "\n                            "
                             )
@@ -43046,9 +43045,7 @@ var render = function() {
               _vm._v(" "),
               _c("li", [
                 _c("div", { staticClass: "map", attrs: { id: "map" } })
-              ]),
-              _vm._v(" "),
-              _c("li", [_c("div", { ref: "googleMap", staticClass: "map" })])
+              ])
             ])
           ])
         ],

@@ -88,7 +88,7 @@
                                 {{ address.car_name }}
                             </td>
                             <td>
-                                <router-link :to="{name: 'DestinationMap', params: { id: address.id }}">編集
+                                <router-link :to="{name: 'DestinationMap', params: { id: address.id }}">
                                     {{ address.place }}
                                 </router-link>
                             </td>
