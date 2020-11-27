@@ -33,7 +33,7 @@ export default new Router({
         },
         {
             name: 'DestinationMap',
-            path: '/:id/destinationmap',
+            path: '/:id',
             component: DestinationMap,
         },
     ],
