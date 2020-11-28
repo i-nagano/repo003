@@ -20,11 +20,11 @@
                 <ul>
                     <li>
                         <label for="lat">緯度:</label>
-                        <input type="text" v-model="lat">
+                        <input type="text" v-model="mapConfig.center.lat">
                     </li>
                     <li>
                         <label for="lat">経度:</label>
-                        <input type="text" v-model="lng">
+                        <input type="text" v-model="mapConfig.center.lng">
                     </li>
                     <li>
                         <div id="map" class="map"></div>
@@ -39,7 +39,7 @@
     import GoogleMapsApiLoader from 'google-maps-api-loader';
     import axios from './axios-auth.js';
     export default {
-        name: 'DestinationMap',
+        name: 'GooglemapSample',
         components: {},
         props: {},
         data: function () {
@@ -47,14 +47,18 @@
                 apiKey: "AIzaSyDJtNib0zPv9am7TfY36kE_lKBi-mB4e7o",
                 address: [],
                 map: {},
-                geocoder: {},
                 marker: null,
-                lat: '',
-                lng: '',
+                mapConfig: {
+                    center: {
+                        lat: 35.68,
+                        lng: 139.76,
+                    },
+                    zoom: 15,
+                },
             };
         },
         mounted: function () {
-            this.initializeMap();
+            this.mapSearch();
         },
         created: function () {
             this.getAddress();
@@ -73,35 +77,29 @@
                         return console.log(error.response.data);
                     });
             },
-            initializeMap() {
-                this.map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                });
-                this.geocoder = new google.maps.Geocoder();
-            },
             async mapSearch() {
                 let google = await GoogleMapsApiLoader({
                     apiKey: this.apiKey,
                     libraries: ['places'],
                 });
-                this.geocoder.geocode({
-                    address: this.address.place,
-                    region: 'jp'
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({
+                        address: this.address.place,
+                        region: 'jp'
                     },
                     (results, status) => {
                         if (status === google.maps.GeocoderStatus.OK) {
-                            this.map.setCenter(results[0].geometry.location);
-                            this.lat = results[0].geometry.location.lat();
-                            this.lng = results[0].geometry.location.lng();
-                            let location = results[0].address_components;
-                            this.marker = new google.maps.Marker({
-                                map: this.map,
-                                position: results[0].geometry.location
-                            });
-                            return console.log(location);
+                            let lat = this.mapConfig.center.lat = results[0].geometry.location.lat();
+                            let lng = this.mapConfig.center.lng = results[0].geometry.location.lng();
+                            let address = results[0].address_components;
+                            let latlng = results[0].geometry.location;
+                            return console.log(address, latlng, lat, lng);
                         };
                     });
                 return this.initializeMap();
+            },
+            initializeMap() {
+                this.map = new google.maps.Map(document.getElementById('map'), this.mapConfig);
             },
         },
     };

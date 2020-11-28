@@ -9,19 +9,21 @@
                     <li>Test1</li>
                     <li>Test2</li>
                     <li>Test3</li>
+                    <li>
+                        <googlemap-sample></googlemap-sample>
+                    </li>
                 </ul>
             </v-row>
         </v-container>
-        <google-maptest></google-maptest>
     </div>
 </template>
 
 <script>
-    import GoogleMaptest from './GoogleMaptest.vue'
+    import GooglemapSample from './GooglemapSample.vue';
     export default {
         name: "Home",
         components: {
-            GoogleMaptest,
+            GooglemapSample,
         },
     };
 </script>
