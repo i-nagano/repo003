@@ -20,7 +20,7 @@
                         </select>
                     </li>
                     <li>
-                        <label for="car_name">自車名:</label>
+                        <label for="car_name">車名:</label>
                         <select name="car_name" id="car_name" v-model="$data.car_name">
                             <option disabled value="">選択してください</option>
                             <option v-for="car in cars" v-bind:key="car.id" v-bind:value="car.name">

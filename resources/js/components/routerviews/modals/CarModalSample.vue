@@ -1,24 +1,35 @@
 <template>
     <div id="overlay" v-on:click.self="$emit('close')">
-        <div id="content">
-            <div class="row mt-2" justify="center">
-                <ul>
-                    <li>
-                        <label>ID: </label>
-                        <input type="text" v-model="childCar.id">
-                    </li>
-                    <li>
-                        <label>車名: </label>
-                        <input type="text" v-model="childCar.name">
-                    </li>
-                    <li>
-                        <label>車No.: </label>
-                        <input type="text" v-model="childCar.number">
-                    </li>
-                    <button v-on:click="updateCar">更新</button>
-                    <button v-on:click="deleteCar">削除</button>
-                    <button v-on:click="$emit('close')">閉じる</button>
-                </ul>
+        <div class="modal">
+            <div class="modal-header">
+                <p class="modal-title">
+                    <slot name="header">タイトル</slot>
+                </p>
+                <i class="modal-close" fas fa-teimes v-on:click="$emit('close')"></i>
+            </div>
+            <div class="modal-body">
+                <slot name="body">
+                    <ul>
+                        <li>
+                            <label>ID: </label>
+                            <input type="text" v-model="childCar.id">
+                        </li>
+                        <li>
+                            <label>車名: </label>
+                            <input type="text" v-model="childCar.name">
+                        </li>
+                        <li>
+                            <label>車No.: </label>
+                            <input type="text" v-model="childCar.number">
+                        </li>
+                        <button v-on:click="updateCar">更新</button>
+                        <button v-on:click="deleteCar">削除</button>
+                        <button v-on:click="$emit('close')">閉じる</button>
+                    </ul>
+                </slot>
+            </div>
+            <div class="modal-footer">
+                <slot name="footer"></slot>
             </div>
         </div>
     </div>

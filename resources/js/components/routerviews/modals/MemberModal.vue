@@ -1,7 +1,7 @@
 <template>
     <div id="overlay" v-on:click.self="$emit('close')">
         <div id="content">
-            <div class="row mt-2" justify="start">
+            <div class="row mt-2" justify="center">
                 <ul>
                     <li>
                         <label>ID: </label>

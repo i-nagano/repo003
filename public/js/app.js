@@ -42077,9 +42077,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", [
-                _c("label", { attrs: { for: "car_name" } }, [
-                  _vm._v("自車名:")
-                ]),
+                _c("label", { attrs: { for: "car_name" } }, [_vm._v("車名:")]),
                 _vm._v(" "),
                 _c(
                   "select",
@@ -43319,6 +43317,9 @@ var render = function() {
       staticClass: "bg",
       on: {
         click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
           return _vm.$emit("close")
         }
       }
@@ -43388,7 +43389,7 @@ var render = function() {
     },
     [
       _c("div", { attrs: { id: "content" } }, [
-        _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
+        _c("div", { staticClass: "row mt-2", attrs: { justify: "center" } }, [
           _c("ul", [
             _c("li", [
               _c("label", [_vm._v("ID: ")]),
@@ -43416,7 +43417,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("label", [_vm._v("自車名: ")]),
+              _c("label", [_vm._v("車名: ")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -43441,7 +43442,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("li", [
-              _c("label", [_vm._v("自車No.: ")]),
+              _c("label", [_vm._v("車No.: ")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -43514,13 +43515,16 @@ var render = function() {
       attrs: { id: "overlay" },
       on: {
         click: function($event) {
+          if ($event.target !== $event.currentTarget) {
+            return null
+          }
           return _vm.$emit("close")
         }
       }
     },
     [
       _c("div", { attrs: { id: "content" } }, [
-        _c("div", { staticClass: "row mt-2", attrs: { justify: "start" } }, [
+        _c("div", { staticClass: "row mt-2", attrs: { justify: "center" } }, [
           _c("ul", [
             _c("li", [
               _c("label", [_vm._v("ID: ")]),
