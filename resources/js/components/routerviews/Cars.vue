@@ -2,7 +2,7 @@
     <div>
         <v-container class="mt-2">
             <v-row class="mt-2" justify="start">
-                <h2>Cars Test</h2>
+                <h4>Cars</h4>
             </v-row>
             <v-row class="mt-2" justify="start">
                 <ul>
