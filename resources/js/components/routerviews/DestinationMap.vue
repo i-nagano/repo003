@@ -113,7 +113,7 @@
     }
 
     .map {
-        width: 70vw;
-        height: 50vh;
+        width: 90vw;
+        height: 80vh;
     }
 </style>

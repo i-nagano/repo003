@@ -7668,7 +7668,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nul[data-v-542477a3] {\n    list-style: none;\n}\n.map[data-v-542477a3] {\n    width: 70vw;\n    height: 50vh;\n}\n", ""]);
+exports.push([module.i, "\nul[data-v-542477a3] {\n    list-style: none;\n}\n.map[data-v-542477a3] {\n    width: 90vw;\n    height: 80vh;\n}\n", ""]);
 
 // exports
 
