@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-container class="mt-12">
-      <v-row class="mt-12" justify="start">
+    <v-container class="mt-2">
+      <v-row class="mt-2" justify="start">
         <router-link to="/">
           <span>Home</span>|
         </router-link>
