@@ -41858,7 +41858,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "v-app",
     [
       _c("header", [_c("navbar")], 1),
       _vm._v(" "),

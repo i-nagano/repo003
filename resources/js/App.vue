@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <v-app>
         <header>
             <navbar></navbar>
         </header>
@@ -7,7 +7,7 @@
             <router-view></router-view>
         </main>
         <foot></foot>
-    </div>
+    </v-app>
 </template>
 
 <script>
