@@ -2473,7 +2473,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       geocoder: {},
       marker: null,
       lat: '',
-      lng: ''
+      lng: '',
+      active: false
     };
   },
   mounted: function mounted() {
@@ -2548,6 +2549,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee);
       }))();
+    },
+    isActive: function isActive() {
+      return this.active = !this.active;
+    },
+    mapGenerate: function mapGenerate() {
+      this.mapSearch();
+      this.isActive();
     }
   }
 });
@@ -42697,9 +42705,9 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-outline-dark",
-                    on: { click: _vm.mapSearch }
+                    on: { click: _vm.mapGenerate }
                   },
-                  [_vm._v("取得")]
+                  [_vm._v("地図")]
                 )
               ])
             ])
@@ -42757,9 +42765,20 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("li", [
-                _c("div", { staticClass: "map", attrs: { id: "map" } })
-              ])
+              _c(
+                "li",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.$data.active,
+                      expression: "$data.active"
+                    }
+                  ]
+                },
+                [_c("div", { staticClass: "map", attrs: { id: "map" } })]
+              )
             ])
           ])
         ],

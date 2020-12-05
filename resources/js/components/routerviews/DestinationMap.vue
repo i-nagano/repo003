@@ -12,7 +12,7 @@
                         <input type="text" v-model="apiKey">
                     </li> -->
                     <li>
-                        <button v-on:click="mapSearch" class="btn btn-outline-dark">取得</button>
+                        <button v-on:click="mapGenerate" class="btn btn-outline-dark">地図</button>
                     </li>
                 </ul>
             </v-row>
@@ -26,7 +26,7 @@
                         <label for="lat">経度:</label>
                         <input type="text" v-model="lng">
                     </li>
-                    <li>
+                    <li v-show="$data.active">
                         <div id="map" class="map"></div>
                     </li>
                 </ul>
@@ -51,6 +51,7 @@
                 marker: null,
                 lat: '',
                 lng: '',
+                active: false,
             };
         },
         mounted: function () {
@@ -102,6 +103,13 @@
                         };
                     });
                 return this.initializeMap();
+            },
+            isActive() {
+                return this.active = !this.active;
+            },
+            mapGenerate() {
+                this.mapSearch();
+                this.isActive();
             },
         },
     };
