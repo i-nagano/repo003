@@ -2474,6 +2474,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       marker: null,
       lat: '',
       lng: '',
+      infowindow: null,
       active: false
     };
   },
@@ -2529,12 +2530,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     _this2.lat = results[0].geometry.location.lat();
                     _this2.lng = results[0].geometry.location.lng();
-                    var location = results[0].address_components;
-                    _this2.marker = new google.maps.Marker({
+                    var location = {
                       map: _this2.map,
-                      position: results[0].geometry.location
-                    });
-                    return console.log(location);
+                      position: results[0].geometry.location,
+                      content: _this2.address.place
+                    };
+                    _this2.marker = new google.maps.Marker(location);
+                    _this2.infowindow = new google.maps.InfoWindow(location);
+                    return console.log(results[0].address_components);
                   }
 
                   ;
@@ -41928,11 +41931,11 @@ var render = function() {
     [
       _c(
         "v-container",
-        { staticClass: "mt-12" },
+        { staticClass: "mt-2" },
         [
           _c(
             "v-row",
-            { staticClass: "mt-12", attrs: { justify: "start" } },
+            { staticClass: "mt-2", attrs: { justify: "start" } },
             [
               _c("router-link", { attrs: { to: "/" } }, [
                 _c("span", [_vm._v("Home")]),
@@ -42683,18 +42686,18 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.address.place,
-                      expression: "address.place"
+                      value: _vm.$data.address.place,
+                      expression: "$data.address.place"
                     }
                   ],
                   attrs: { type: "text" },
-                  domProps: { value: _vm.address.place },
+                  domProps: { value: _vm.$data.address.place },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.$set(_vm.address, "place", $event.target.value)
+                      _vm.$set(_vm.$data.address, "place", $event.target.value)
                     }
                   }
                 })
@@ -42723,18 +42726,18 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.lat,
-                      expression: "lat"
+                      value: _vm.$data.lat,
+                      expression: "$data.lat"
                     }
                   ],
                   attrs: { type: "text" },
-                  domProps: { value: _vm.lat },
+                  domProps: { value: _vm.$data.lat },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.lat = $event.target.value
+                      _vm.$set(_vm.$data, "lat", $event.target.value)
                     }
                   }
                 })
@@ -42748,18 +42751,18 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.lng,
-                      expression: "lng"
+                      value: _vm.$data.lng,
+                      expression: "$data.lng"
                     }
                   ],
                   attrs: { type: "text" },
-                  domProps: { value: _vm.lng },
+                  domProps: { value: _vm.$data.lng },
                   on: {
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.lng = $event.target.value
+                      _vm.$set(_vm.$data, "lng", $event.target.value)
                     }
                   }
                 })
@@ -103801,8 +103804,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravel\cars-members\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel\cars-members\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /opt/lampp/htdocs/laravel/cars-members/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /opt/lampp/htdocs/laravel/cars-members/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

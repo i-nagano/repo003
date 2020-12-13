@@ -5,11 +5,11 @@
                 <ul>
                     <li>
                         <label for="address">住所入力:</label>
-                        <input type="text" v-model="address.place">
+                        <input type="text" v-model="$data.address.place">
                     </li>
                     <!-- <li>
                         <label for="apiKey">キー入力:</label>
-                        <input type="text" v-model="apiKey">
+                        <input type="text" v-model="$data.apiKey">
                     </li> -->
                     <li>
                         <button v-on:click="mapGenerate" class="btn btn-outline-dark">地図</button>
@@ -20,11 +20,11 @@
                 <ul>
                     <li>
                         <label for="lat">緯度:</label>
-                        <input type="text" v-model="lat">
+                        <input type="text" v-model="$data.lat">
                     </li>
                     <li>
                         <label for="lat">経度:</label>
-                        <input type="text" v-model="lng">
+                        <input type="text" v-model="$data.lng">
                     </li>
                     <li v-show="$data.active">
                         <div id="map" class="map"></div>
@@ -51,6 +51,7 @@
                 marker: null,
                 lat: '',
                 lng: '',
+                infowindow: null,
                 active: false,
             };
         },
@@ -86,20 +87,22 @@
                     libraries: ['places'],
                 });
                 this.geocoder.geocode({
-                    address: this.address.place,
-                    region: 'jp'
+                        address: this.address.place,
+                        region: 'jp'
                     },
                     (results, status) => {
                         if (status === google.maps.GeocoderStatus.OK) {
                             this.map.setCenter(results[0].geometry.location);
                             this.lat = results[0].geometry.location.lat();
                             this.lng = results[0].geometry.location.lng();
-                            let location = results[0].address_components;
-                            this.marker = new google.maps.Marker({
+                            let location = {
                                 map: this.map,
-                                position: results[0].geometry.location
-                            });
-                            return console.log(location);
+                                position: results[0].geometry.location,
+                                content: this.address.place,
+                            };
+                            this.marker = new google.maps.Marker(location);
+                            this.infowindow = new google.maps.InfoWindow(location);
+                            return console.log(results[0].address_components);
                         };
                     });
                 return this.initializeMap();
